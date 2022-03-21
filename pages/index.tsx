@@ -1,13 +1,23 @@
 import Image from "next/image";
 import styled from "styled-components";
+import axios from "axios";
+import { GetServerSideProps } from "next";
 
-const Home = () => {
+interface IHomeProps {
+  data: {
+    name: string;
+  };
+}
+
+const Home = ({ data }: IHomeProps) => {
+  console.log(data.name);
+
   return (
     <>
       <TextSection>
         <div className="text_container">
           <h2 className="title">Next js Template</h2>
-          <h3 className="author">by Asher</h3>
+          <h3 className="author">by {data.name}</h3>
         </div>
       </TextSection>
       <ImageSection>
@@ -17,6 +27,7 @@ const Home = () => {
             alt="sample"
             layout="fill"
             objectFit="cover"
+            priority
           />
         </div>
       </ImageSection>
@@ -47,6 +58,19 @@ const Home = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await axios({
+    method: "get",
+    url: "http://localhost:3000/api/name",
+  });
+
+  return {
+    props: {
+      data,
+    },
+  };
+};
 
 const TextSection = styled.section`
   width: 100%;

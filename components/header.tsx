@@ -1,13 +1,32 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const Header = () => {
+  const router = useRouter();
+
+  const doPush = (url: string) => {
+    router.push(url);
+  };
+
   return (
     <>
       <Wrapper>
         <div className="container">
           <Nav>
-            <li>Home</li>
-            <li>About</li>
+            <li
+              onClick={() => {
+                doPush("/");
+              }}
+            >
+              Home
+            </li>
+            <li
+              onClick={() => {
+                doPush("/about");
+              }}
+            >
+              About
+            </li>
           </Nav>
         </div>
       </Wrapper>
