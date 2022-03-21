@@ -26,7 +26,7 @@ const Wrapper = styled.header`
   .container {
     margin: 0 auto;
     width: 500px;
-    height: 50px;
+    height: 70px;
     ${({ theme }) => theme.mixin.flexCenter}
   }
 `;
@@ -34,9 +34,10 @@ const Wrapper = styled.header`
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
   li {
     cursor: pointer;
+    font-size: 30px;
     &:hover {
       color: ${({ theme }) => theme.colors.background_color};
     }

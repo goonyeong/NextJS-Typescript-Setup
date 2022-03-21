@@ -28,10 +28,7 @@ const Home = () => {
             quae ab illo inventore veritatis et quasi architecto beatae vitae
             dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
             aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-            eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-            qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-            sed quia non numquam eius modi tempora incidunt ut labore et dolore
-            magnam aliquam quaerat voluptatem.
+            eos qui ratione voluptatem sequi nesciunt.
           </p>
         </div>
       </TextSection>
@@ -53,9 +50,9 @@ export default Home;
 
 const TextSection = styled.section`
   width: 100%;
-  height: 400px;
+  min-height: 400px;
   ${({ theme }) => theme.mixin.flexCenter}
-  padding: 50px;
+  padding: 50px 0;
   .text_container {
     .title,
     .author,
@@ -63,15 +60,17 @@ const TextSection = styled.section`
       text-align: center;
     }
     .title {
-      font-size: 5rem;
+      font-size: 60px;
       color: ${({ theme }) => theme.colors.primary_color};
     }
     .author {
-      font-size: 3rem;
+      font-size: 40px;
     }
     .desc {
       font-size: 2rem;
       word-break: keep-all;
+      width: 960px;
+      margin: 0 auto;
     }
   }
 `;
@@ -80,7 +79,7 @@ const ImageSection = styled.section`
   width: 100%;
   .img_container {
     width: 100%;
-    height: 400px;
+    height: 600px;
     position: relative;
   }
 `;
