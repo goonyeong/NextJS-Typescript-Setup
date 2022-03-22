@@ -3,16 +3,16 @@ import { GetServerSideProps } from "next";
 import axios from "axios";
 import { IArtist } from "../shared/interface";
 import Image from "next/image";
+import Seo from "../components/seo";
 
 interface IAboutProps {
   data: IArtist[];
 }
 
 const About = ({ data }: IAboutProps) => {
-  console.log(data);
-
   return (
     <Wrapper>
+      <Seo title="Next app - about" />
       {data.map((artist) => (
         <Container key={artist.name}>
           <ImageContainer width="100%" height="400px" borderRadius="3rem">
@@ -29,11 +29,7 @@ const About = ({ data }: IAboutProps) => {
           <Songlist>
             {artist.songs.map((song) => (
               <li key={song.title}>
-                <ImageContainer
-                  height="100px"
-                  width="100px"
-                  borderRadius="2rem"
-                >
+                <ImageContainer height="100px" width="100px" borderRadius="50%">
                   <Image
                     src={song.image}
                     alt="artist image"

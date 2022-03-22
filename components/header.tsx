@@ -1,11 +1,17 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useStore } from "../shared/Store";
 
 const Header = () => {
   const router = useRouter();
+  const { themeStore } = useStore();
 
   const doPush = (url: string) => {
     router.push(url);
+  };
+
+  const setThemeClick = () => {
+    themeStore.setTheme();
   };
 
   return (
@@ -29,6 +35,9 @@ const Header = () => {
             </li>
           </Nav>
         </div>
+        <span className="set_theme" onClick={setThemeClick}>
+          Change Theme
+        </span>
       </Wrapper>
     </>
   );
@@ -47,6 +56,17 @@ const Wrapper = styled.header`
     width: 500px;
     height: 70px;
     ${({ theme }) => theme.mixin.flexCenter}
+  }
+  .set_theme {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background-color: ${({ theme }) => theme.colors.background_color};
+    padding: 0.4rem 2rem;
+    border-radius: 2rem;
+    cursor: pointer;
   }
 `;
 

@@ -2,6 +2,8 @@ import Image from "next/image";
 import styled from "styled-components";
 import axios from "axios";
 import { GetServerSideProps } from "next";
+import sample from "../public/images/sample.jpg";
+import sample2 from "../public/images/sample2.jpg";
 
 interface IHomeProps {
   data: {
@@ -10,8 +12,6 @@ interface IHomeProps {
 }
 
 const Home = ({ data }: IHomeProps) => {
-  console.log(data.name);
-
   return (
     <>
       <TextSection>
@@ -23,7 +23,7 @@ const Home = ({ data }: IHomeProps) => {
       <ImageSection>
         <div className="img_container">
           <Image
-            src="/images/sample.jpg"
+            src={sample}
             alt="sample"
             layout="fill"
             objectFit="cover"
@@ -46,10 +46,11 @@ const Home = ({ data }: IHomeProps) => {
       <ImageSection>
         <div className="img_container">
           <Image
-            src="/images/sample2.jpg"
+            src={sample2}
             alt="sample"
             layout="fill"
             objectFit="cover"
+            priority
           />
         </div>
       </ImageSection>
