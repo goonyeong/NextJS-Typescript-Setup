@@ -7,7 +7,7 @@ import GlobalFont from "../styles/globalFonts";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={darkTheme}>
       <GlobalFont />
       <GlobalStyle />
       <Layout>

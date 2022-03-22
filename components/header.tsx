@@ -58,7 +58,7 @@ const Nav = styled.nav`
     cursor: pointer;
     font-size: 30px;
     &:hover {
-      color: ${({ theme }) => theme.colors.background_color};
+      color: ${({ theme }) => theme.colors.primary_color};
     }
   }
 `;

@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
         line-height: 1.5;
         background-color: ${({ theme }) => theme.colors.background_color};
         color: ${({ theme }) => theme.colors.text_color};
-        font-size: 2rem;
+        font-size: 10px;
     }
     input, textarea, select, button {
         outline: none;
