@@ -1,10 +1,14 @@
+import { observer } from "mobx-react-lite";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
 import { useStore } from "../shared/Store";
 
 const Header = () => {
+  const [nameValue, setNameValue] = useState("");
+
   const router = useRouter();
-  const { themeStore } = useStore();
+  const { themeStore, userStore } = useStore();
 
   const doPush = (url: string) => {
     router.push(url);
@@ -14,9 +18,37 @@ const Header = () => {
     themeStore.setTheme();
   };
 
+  const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameValue(e.target.value);
+  };
+
+  const handleClickSignin = () => {
+    userStore.signIn(nameValue);
+    setNameValue("");
+  };
+
+  const handleClickSignout = () => {
+    userStore.signOut();
+  };
+
   return (
     <>
       <Wrapper>
+        <div className="sign_box">
+          {userStore.user.isSignin ? (
+            <button onClick={handleClickSignout}>Sign out</button>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Username"
+                value={nameValue}
+                onChange={handleChangeUserName}
+              />
+              <button onClick={handleClickSignin}>Sign in</button>
+            </>
+          )}
+        </div>
         <div className="container">
           <Nav>
             <li
@@ -43,7 +75,7 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default observer(Header);
 
 const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.colors.nav_color};
@@ -56,6 +88,29 @@ const Wrapper = styled.header`
     width: 500px;
     height: 70px;
     ${({ theme }) => theme.mixin.flexCenter}
+  }
+  .sign_box {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    input {
+      background-color: ${({ theme }) => theme.colors.background_color};
+      font-size: 2rem;
+      width: 150px;
+      border: 0;
+      margin-right: 10px;
+      border-radius: 2rem;
+      padding: 0.4rem 2rem;
+    }
+    button {
+      background-color: ${({ theme }) => theme.colors.background_color};
+      font-size: 2rem;
+      border-radius: 2rem;
+      padding: 0.4rem 2rem;
+      border: 0;
+      cursor: pointer;
+    }
   }
   .set_theme {
     position: absolute;

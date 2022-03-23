@@ -5,16 +5,16 @@ const GlobalStyle = createGlobalStyle`
     ${reset}
     *, *::before, *::after{
         box-sizing: border-box;
+        color: inherit;
     }
     html{
-        font-size: 1vw;
+        font-size: 10px;
     }
     body{
         font-family: "Font_test";
         line-height: 1.5;
         background-color: ${({ theme }) => theme.colors.background_color};
         color: ${({ theme }) => theme.colors.text_color};
-        font-size: 10px;
     }
     input, textarea, select, button {
         outline: none;

@@ -5,20 +5,24 @@ import Layout from "../components/layout";
 import GlobalStyle from "../styles/globalStyles";
 import GlobalFont from "../styles/globalFonts";
 import Seo from "../components/seo";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { rootStore, StoreProvider, useStore } from "../shared/Store";
 import { observer } from "mobx-react-lite";
+import { AsyncTrunk } from "mobx-sync";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { themeStore } = useStore();
 
   useEffect(() => {
     const reHydrate = async () => {
-      // await trunk.init();
+      if (typeof window !== "undefined") {
+        const trunk = new AsyncTrunk(rootStore, {
+          storage: localStorage,
+        });
+        await trunk.init();
+      }
     };
     reHydrate();
-
-    console.log(themeStore.theme);
   }, []);
 
   return (
