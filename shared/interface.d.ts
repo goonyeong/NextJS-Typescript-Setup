@@ -1,13 +1,13 @@
 // interface
 
-export interface IArtist {
+interface IArtist {
   name: string;
   image: string;
   nationality: string;
   songs: ISong[];
 }
 
-export interface ISong {
+interface ISong {
   title: string;
   artist: string;
   album: string;

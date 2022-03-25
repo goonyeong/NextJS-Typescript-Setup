@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { GetServerSideProps } from "next";
 import axios from "axios";
-import { IArtist } from "../shared/interface";
 import Image from "next/image";
 import Seo from "../components/seo";
 

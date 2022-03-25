@@ -6,7 +6,7 @@ import GlobalStyle from "../styles/globalStyles";
 import GlobalFont from "../styles/globalFonts";
 import Seo from "../components/seo";
 import { useEffect } from "react";
-import { rootStore, StoreProvider, useStore } from "../shared/Store";
+import { rootStore, StoreProvider, useStore } from "../shared/store";
 import { observer } from "mobx-react-lite";
 import { AsyncTrunk } from "mobx-sync";
 

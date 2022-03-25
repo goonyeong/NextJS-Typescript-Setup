@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { useStore } from "../shared/Store";
+import { useStore } from "../shared/store";
 
 const Header = () => {
   const [nameValue, setNameValue] = useState("");
