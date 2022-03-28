@@ -8,10 +8,10 @@ with the basics of starting a Next js project.
 - styled components
 - Mobx
 
-## 1. npm install
+### 1. install modules
 
-- install modules
+$ npm install
 
-## 2. npm run dev
+### 2. run dev server (port number 3000)
 
-- run dev server (must be on port number 3000 for api request)
+$ npm run dev
