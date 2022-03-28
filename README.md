@@ -8,10 +8,21 @@ with the basics of starting a Next js project.
 - styled components
 - Mobx
 
-### 1. install modules
+### 1) Clone
 
-$ npm install
+> git clone https://github.com/greatasher7/NextJS-Typescript-Setup.git
 
-### 2. run dev server (port number 3000)
+### 2) Git initialize (You run terminal at root of this project)
 
-$ npm run dev
+> rm -rf ./.git
+
+> git init
+
+### 3) install modules
+
+> npm install
+
+### 4) run dev server (port number 3000)
+
+> npm run dev
+
