@@ -1,4 +1,7 @@
 // interface
+interface IUserInfo {
+  name: string;
+}
 
 interface IArtist {
   name: string;

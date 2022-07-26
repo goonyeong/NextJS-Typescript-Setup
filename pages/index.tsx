@@ -1,29 +1,47 @@
+import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
+// import Head from
 import styled from "styled-components";
 import axios from "axios";
-import { GetServerSideProps } from "next";
-import sample from "../public/images/sample.jpg";
-import sample2 from "../public/images/sample2.jpg";
+import { useEffect, useState } from "react";
 
-interface IHomeProps {
-  data: {
-    name: string;
-  };
+interface IHomeprops {
+  data: any;
 }
 
-const Home = ({ data }: IHomeProps) => {
+const Home: NextPage<IHomeprops> = ({ data }) => {
+  const [csrData, setData] = useState("");
+
+  useEffect(() => {
+    const getData = async () => {
+      const {
+        data: { name },
+      } = await axios({
+        method: "get",
+        url: "http://localhost:3000/api/name",
+      });
+
+      setData(name);
+    };
+
+    getData();
+  }, []);
+
+  console.log(data);
+
   return (
     <>
       <TextSection>
         <div className="text_container">
           <h2 className="title">Next js Template</h2>
-          <h3 className="author">by {data.name}</h3>
+          <h3 className="author">by crs {csrData}</h3>
+          <h3 className="author">by SSG {data.title}</h3>
         </div>
       </TextSection>
       <ImageSection>
         <div className="img_container">
           <Image
-            src={sample}
+            src="/images/sample.jpg"
             alt="sample"
             layout="fill"
             objectFit="cover"
@@ -34,7 +52,7 @@ const Home = ({ data }: IHomeProps) => {
       <TextSection>
         <div className="text_container">
           <p className="desc">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            Sed ut perspiciatis unde omnis iste nnpmx atus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
             quae ab illo inventore veritatis et quasi architecto beatae vitae
             dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
@@ -46,7 +64,7 @@ const Home = ({ data }: IHomeProps) => {
       <ImageSection>
         <div className="img_container">
           <Image
-            src={sample2}
+            src="/images/sample2.jpg"
             alt="sample"
             layout="fill"
             objectFit="cover"
@@ -60,17 +78,13 @@ const Home = ({ data }: IHomeProps) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const { data } = await axios({
     method: "get",
-    url: "http://localhost:3000/api/name",
+    url: "https://api.themoviedb.org/3/movie/550?api_key=2aba01b0fce18e86ed1cee2e83403b06",
   });
 
-  return {
-    props: {
-      data,
-    },
-  };
+  return { props: { data } };
 };
 
 const TextSection = styled.section`

@@ -1,8 +1,7 @@
-import { observer } from "mobx-react-lite";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
-import { useStore } from "../shared/store";
+import { useStore } from "shared/store";
 
 const Header = () => {
   const [nameValue, setNameValue] = useState("");
@@ -75,7 +74,7 @@ const Header = () => {
   );
 };
 
-export default observer(Header);
+export default Header;
 
 const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.colors.nav_color};

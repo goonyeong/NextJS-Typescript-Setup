@@ -9,7 +9,7 @@ export default function handler(
 
 const data: IArtist[] = [
   {
-    name: "John Mayer",
+    name: "John Mayerrrr",
     image: "/images/john_mayer.jpg",
     nationality: "United State",
     songs: [

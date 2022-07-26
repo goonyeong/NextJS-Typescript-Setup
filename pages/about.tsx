@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import { GetServerSideProps } from "next";
+import { NextPage, GetServerSideProps } from "next";
 import axios from "axios";
 import Image from "next/image";
-import Seo from "../components/seo";
+import Seo from "components/seo";
 
 interface IAboutProps {
-  data: IArtist[];
+  artistInfo: IArtist[];
 }
 
-const About = ({ data }: IAboutProps) => {
+const About: NextPage<IAboutProps> = ({ artistInfo }) => {
   return (
     <Wrapper>
       <Seo title="Next app - about" />
-      {data.map((artist) => (
+      {artistInfo.map((artist) => (
         <Container key={artist.name}>
           <ImageContainer width="100%" height="400px" borderRadius="3rem">
             <Image
@@ -55,14 +55,68 @@ const About = ({ data }: IAboutProps) => {
 export default About;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await axios({
-    method: "get",
-    url: "http://localhost:3000/api/about",
-  });
+  const artistInfo: IArtist[] = [
+    {
+      name: "John Mayerrrr",
+      image: "/images/john_mayer.jpg",
+      nationality: "United State",
+      songs: [
+        {
+          title: "Gravity",
+          artist: "John Mayer",
+          album: "Continuum",
+          year: 2006,
+          image: "/images/continuum.jpg",
+        },
+        {
+          title: "Neon",
+          artist: "John Mayer",
+          album: "Continuum",
+          year: 2006,
+          image: "/images/continuum.jpg",
+        },
+        {
+          title: "Last Train Home",
+          artist: "John Mayer",
+          album: "Sob Rock",
+          year: 2021,
+          image: "/images/sob_rock.jpg",
+        },
+      ],
+    },
+    {
+      name: "John Splithoff",
+      image: "/images/john_splithoff.jpg",
+      nationality: "United State",
+      songs: [
+        {
+          title: "Raye",
+          artist: "John Splithoff",
+          album: "Raye",
+          year: 2018,
+          image: "/images/raye.jpg",
+        },
+        {
+          title: "Make It Happen",
+          artist: "John Splithoff",
+          album: "Make It Happen (Deluxe Edition)",
+          year: 2018,
+          image: "/images/make_it_happen.jpg",
+        },
+        {
+          title: "Show Me",
+          artist: "John Splithoff",
+          album: "Make It Happen (Deluxe Edition)",
+          year: 2018,
+          image: "/images/make_it_happen.jpg",
+        },
+      ],
+    },
+  ];
 
   return {
     props: {
-      data,
+      artistInfo,
     },
   };
 };

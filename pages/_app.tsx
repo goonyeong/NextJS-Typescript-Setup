@@ -1,14 +1,14 @@
+import { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme } from "../styles/theme";
-import Layout from "../components/layout";
-import GlobalStyle from "../styles/globalStyles";
-import GlobalFont from "../styles/globalFonts";
-import Seo from "../components/seo";
-import { useEffect } from "react";
-import { rootStore, StoreProvider, useStore } from "../shared/store";
+import { darkTheme, lightTheme } from "styles/theme";
+import GlobalStyle from "styles/globalStyles";
+import GlobalFont from "styles/globalFonts";
+import Layout from "components/layout";
 import { observer } from "mobx-react-lite";
+import { rootStore, StoreProvider, useStore } from "shared/store";
 import { AsyncTrunk } from "mobx-sync";
+import Seo from "components/seo";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { themeStore } = useStore();
