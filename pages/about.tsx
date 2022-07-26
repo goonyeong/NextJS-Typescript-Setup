@@ -1,7 +1,9 @@
-import styled from "styled-components";
+// React & Next
 import { NextPage, GetServerSideProps } from "next";
-import axios from "axios";
 import Image from "next/image";
+// Style
+import styled from "styled-components";
+// Components
 import Seo from "components/seo";
 
 interface IAboutProps {

@@ -1,6 +1,9 @@
+// React & Next
 import { useRouter } from "next/router";
 import { useState } from "react";
+// Style
 import styled from "styled-components";
+// Mobx
 import { useStore } from "shared/store";
 
 const Header = () => {

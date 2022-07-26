@@ -1,9 +1,11 @@
+// React & Next
 import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
-// import Head from
-import styled from "styled-components";
-import axios from "axios";
 import { useEffect, useState } from "react";
+// Style
+import styled from "styled-components";
+// Library
+import axios from "axios";
 
 interface IHomeprops {
   data: any;

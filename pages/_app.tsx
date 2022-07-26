@@ -1,13 +1,17 @@
+// React & Next
 import { useEffect } from "react";
 import type { AppProps } from "next/app";
+// Style
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "styles/theme";
 import GlobalStyle from "styles/globalStyles";
 import GlobalFont from "styles/globalFonts";
-import Layout from "components/layout";
+// Mobx
 import { observer } from "mobx-react-lite";
 import { rootStore, StoreProvider, useStore } from "shared/store";
 import { AsyncTrunk } from "mobx-sync";
+// Components
+import Layout from "components/layout";
 import Seo from "components/seo";
 
 function MyApp({ Component, pageProps }: AppProps) {
