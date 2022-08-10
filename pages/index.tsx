@@ -1,43 +1,37 @@
 // React & Next
-import { NextPage, GetStaticProps } from "next";
+import { NextPage, GetStaticProps, GetServerSideProps } from "next";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {
+  dehydrate,
+  DehydratedState,
+  QueryClient,
+  useQuery,
+} from "@tanstack/react-query";
+import { queryKeys } from "utils/queryKeys";
 // Style
 import styled from "styled-components";
-// Library
-import axios from "axios";
+// Utils
+import { getMovieName, getNameData } from "utils/api";
 
-interface IHomeprops {
-  data: any;
-}
+const Home: NextPage = () => {
+  // CSR
+  const { isLoading, data: nameData } = useQuery<{ name: string }>(
+    queryKeys.NAME,
+    getNameData
+  );
 
-const Home: NextPage<IHomeprops> = ({ data }) => {
-  const [csrData, setData] = useState("");
+  // SSG
+  const { data: movieData } = useQuery(queryKeys.MOVIE, getMovieName);
 
-  useEffect(() => {
-    const getData = async () => {
-      const {
-        data: { name },
-      } = await axios({
-        method: "get",
-        url: "http://localhost:3000/api/name",
-      });
-
-      setData(name);
-    };
-
-    getData();
-  }, []);
-
-  console.log(data);
+  console.log("loading", !isLoading, nameData);
 
   return (
     <>
       <TextSection>
         <div className="text_container">
           <h2 className="title">Next js Template</h2>
-          <h3 className="author">by crs {csrData}</h3>
-          <h3 className="author">by SSG {data.title}</h3>
+          {nameData && <h3 className="author">by crs {nameData.name}</h3>}
+          <h3 className="author">by SSG {movieData.original_title}</h3>
         </div>
       </TextSection>
       <ImageSection>
@@ -80,13 +74,13 @@ const Home: NextPage<IHomeprops> = ({ data }) => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await axios({
-    method: "get",
-    url: "https://api.themoviedb.org/3/movie/550?api_key=2aba01b0fce18e86ed1cee2e83403b06",
-  });
+export const getStaticProps: GetStaticProps = async (): Promise<{
+  props: { dehydratedState: DehydratedState };
+}> => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["movie"], getMovieName);
 
-  return { props: { data } };
+  return { props: { dehydratedState: dehydrate(queryClient) } };
 };
 
 const TextSection = styled.section`

@@ -4,7 +4,8 @@ import { useState } from "react";
 // Style
 import styled from "styled-components";
 // Mobx
-import { useStore } from "shared/store";
+import { useStore } from "store";
+import { observer } from "mobx-react-lite";
 
 const Header = () => {
   const [nameValue, setNameValue] = useState("");
@@ -77,7 +78,7 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default observer(Header);
 
 const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.colors.nav_color};

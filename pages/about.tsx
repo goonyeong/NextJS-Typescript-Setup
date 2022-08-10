@@ -5,120 +5,83 @@ import Image from "next/image";
 import styled from "styled-components";
 // Components
 import Seo from "components/seo";
+// Api
+import { getArtistData, getNameData } from "utils/api";
+import {
+  dehydrate,
+  DehydratedState,
+  QueryClient,
+  useQuery,
+} from "@tanstack/react-query";
 
-interface IAboutProps {
-  artistInfo: IArtist[];
-}
+const About: NextPage = () => {
 
-const About: NextPage<IAboutProps> = ({ artistInfo }) => {
+  
+  // SSR
+  const { data: artistData } = useQuery<IArtist[]>(["artist"], getArtistData);
+
   return (
     <Wrapper>
       <Seo title="Next app - about" />
-      {artistInfo.map((artist) => (
-        <Container key={artist.name}>
-          <ImageContainer width="100%" height="400px" borderRadius="3rem">
-            <Image
-              src={artist.image}
-              alt="artist image"
-              layout="fill"
-              objectFit="cover"
-              priority
-            />
-          </ImageContainer>
-          <h3 className="name">{artist.name}</h3>
-          <span className="nationality">{artist.nationality}</span>
-          <Songlist>
-            {artist.songs.map((song) => (
-              <li key={song.title}>
-                <ImageContainer height="100px" width="100px" borderRadius="50%">
-                  <Image
-                    src={song.image}
-                    alt="artist image"
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </ImageContainer>
-                <div className="info_box">
-                  <h4 className="title">{song.title}</h4>
-                  <span className="artist">
-                    {song.artist} / {song.year}
-                  </span>
-                  <span className="album">{song.album}</span>
-                </div>
-              </li>
-            ))}
-          </Songlist>
-        </Container>
-      ))}
+      {artistData &&
+        artistData.map((artist) => (
+          <Container key={artist.name}>
+            <ImageContainer width="100%" height="400px" borderRadius="3rem">
+              <Image
+                src={artist.image}
+                alt="artist image"
+                layout="fill"
+                objectFit="cover"
+                priority
+              />
+            </ImageContainer>
+            <h3 className="name">{artist.name}</h3>
+            <span className="nationality">{artist.nationality}</span>
+            <Songlist>
+              {artist.songs.map((song) => (
+                <li key={song.title}>
+                  <ImageContainer
+                    height="100px"
+                    width="100px"
+                    borderRadius="50%"
+                  >
+                    <Image
+                      src={song.image}
+                      alt="artist image"
+                      layout="fill"
+                      objectFit="cover"
+                      priority
+                    />
+                  </ImageContainer>
+                  <div className="info_box">
+                    <h4 className="title">{song.title}</h4>
+                    <span className="artist">
+                      {song.artist} / {song.year}
+                    </span>
+                    <span className="album">{song.album}</span>
+                  </div>
+                </li>
+              ))}
+            </Songlist>
+          </Container>
+        ))}
     </Wrapper>
   );
 };
 
 export default About;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const artistInfo: IArtist[] = [
-    {
-      name: "John Mayerrrr",
-      image: "/images/john_mayer.jpg",
-      nationality: "United State",
-      songs: [
-        {
-          title: "Gravity",
-          artist: "John Mayer",
-          album: "Continuum",
-          year: 2006,
-          image: "/images/continuum.jpg",
-        },
-        {
-          title: "Neon",
-          artist: "John Mayer",
-          album: "Continuum",
-          year: 2006,
-          image: "/images/continuum.jpg",
-        },
-        {
-          title: "Last Train Home",
-          artist: "John Mayer",
-          album: "Sob Rock",
-          year: 2021,
-          image: "/images/sob_rock.jpg",
-        },
-      ],
-    },
-    {
-      name: "John Splithoff",
-      image: "/images/john_splithoff.jpg",
-      nationality: "United State",
-      songs: [
-        {
-          title: "Raye",
-          artist: "John Splithoff",
-          album: "Raye",
-          year: 2018,
-          image: "/images/raye.jpg",
-        },
-        {
-          title: "Make It Happen",
-          artist: "John Splithoff",
-          album: "Make It Happen (Deluxe Edition)",
-          year: 2018,
-          image: "/images/make_it_happen.jpg",
-        },
-        {
-          title: "Show Me",
-          artist: "John Splithoff",
-          album: "Make It Happen (Deluxe Edition)",
-          year: 2018,
-          image: "/images/make_it_happen.jpg",
-        },
-      ],
-    },
-  ];
+export const getServerSideProps: GetServerSideProps = async (): Promise<{
+  props: { dehydratedState: DehydratedState };
+}> => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["artist"], getArtistData);
+
+  await queryClient.prefetchQuery(["name"], getNameData);
 
   return {
     props: {
-      artistInfo,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
