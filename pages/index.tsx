@@ -7,7 +7,7 @@ import {
   QueryClient,
   useQuery,
 } from "@tanstack/react-query";
-import { queryKeys } from "utils/queryKeys";
+import { queryKeys } from "types/queryKeys";
 // Style
 import styled from "styled-components";
 // Utils
@@ -22,8 +22,6 @@ const Home: NextPage = () => {
 
   // SSG
   const { data: movieData } = useQuery(queryKeys.MOVIE, getMovieName);
-
-  console.log("loading", !isLoading, nameData);
 
   return (
     <>

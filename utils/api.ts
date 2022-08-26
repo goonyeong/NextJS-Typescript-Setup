@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://172.30.10.71:3000";
+const API_URL = "http://172.30.1.46:3000";
 
 export const getNameData = async () => {
   const { data } = await axios({

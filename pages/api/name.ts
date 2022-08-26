@@ -11,11 +11,5 @@ export default function handler(
 ) {
   let name = "Asher";
 
-  if (req.method === "POST") {
-    console.log("jjj", Object.keys(req.body)[0]);
-    name = Object.keys(req.body)[0];
-    res.status(200).json({ name: name });
-  } else {
-    res.status(200).json({ name: name });
-  }
+  res.status(200).json({ name: name });
 }

@@ -15,8 +15,6 @@ import {
 } from "@tanstack/react-query";
 
 const About: NextPage = () => {
-
-  
   // SSR
   const { data: artistData } = useQuery<IArtist[]>(["artist"], getArtistData);
 
@@ -76,8 +74,6 @@ export const getServerSideProps: GetServerSideProps = async (): Promise<{
 }> => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(["artist"], getArtistData);
-
-  await queryClient.prefetchQuery(["name"], getNameData);
 
   return {
     props: {

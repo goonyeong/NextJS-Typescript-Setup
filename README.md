@@ -5,8 +5,9 @@ with the basics of starting a Next js project.
 - Typescript
 - Next js
 - React js
-- styled components
+- Styled components
 - Mobx
+- React-query
 
 ### 1) Clone
 
@@ -18,11 +19,20 @@ with the basics of starting a Next js project.
 
 > git init
 
-### 3) install modules
+### 3) Install modules
 
 > npm install
 
-### 4) run dev server (port number 3000)
+### 4) Run dev server (port number 3000)
 
 > npm run dev
 
+## Build
+
+### 1) Build project
+
+> npm run build
+
+### 2) Run server with build output
+
+> npm start

@@ -18,7 +18,7 @@ const Header = () => {
   };
 
   const setThemeClick = () => {
-    themeStore.setTheme();
+    themeStore.changeTheme();
   };
 
   const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,3 +1,11 @@
+/** user store
+ *
+ * user : observable - name & isSignin
+ * signIn : action - name update & isSignin = true
+ * signOut : action - name === "" & isSignin = false
+ *
+ */
+
 import { observable, action, makeObservable } from "mobx";
 
 interface IUser {
@@ -6,11 +14,13 @@ interface IUser {
 }
 
 export class UserStore {
+  // observable
   user: IUser = {
     name: "",
     isSignin: false,
   };
 
+  // constructor
   constructor() {
     makeObservable(this, {
       user: observable,
@@ -19,6 +29,7 @@ export class UserStore {
     });
   }
 
+  // action
   signIn = (name: string) => {
     this.user = {
       name: name,

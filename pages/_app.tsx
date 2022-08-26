@@ -14,8 +14,13 @@ import GlobalStyle from "styles/globalStyles";
 import GlobalFont from "styles/globalFonts";
 // Mobx
 import { observer } from "mobx-react-lite";
-import { rootStore, StoreProvider, useStore } from "store";
-import { AsyncTrunk } from "mobx-sync";
+import {
+  rootStore,
+  StoreProvider,
+  useStore,
+  reHydrateLocalStorage,
+  reHydrateSessionStorage,
+} from "store";
 // Components
 import Layout from "components/layout";
 import Seo from "components/seo";
@@ -25,15 +30,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
   useEffect(() => {
-    const reHydrate = async () => {
-      if (typeof window !== "undefined") {
-        const trunk = new AsyncTrunk(rootStore, {
-          storage: localStorage,
-        });
-        await trunk.init();
-      }
-    };
-    reHydrate();
+    reHydrateLocalStorage([rootStore.themeStore]);
+    reHydrateSessionStorage([rootStore.userStore]);
   }, []);
 
   return (
@@ -52,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               </Layout>
             </ThemeProvider>
           </StoreProvider>
-          <ReactQueryDevtools initialIsOpen={true} />
+          <ReactQueryDevtools initialIsOpen={false} />
         </Hydrate>
       </QueryClientProvider>
     </>
