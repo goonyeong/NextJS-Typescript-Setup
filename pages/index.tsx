@@ -1,38 +1,61 @@
 // React & Next
-import { NextPage, GetStaticProps, GetServerSideProps } from "next";
+import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
-import { dehydrate, DehydratedState, QueryClient, useQuery } from "@tanstack/react-query";
-import { queryKeys } from "types/queryKeys";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import { QUERY_KEYS } from "queries/queryKeys";
 // Style
 import styled from "styled-components";
 // Utils
-import { getMovieName, getNameData } from "utils/api";
+import { getMovies, getNameData } from "apis/api";
 import { useRouter } from "next/router";
+import { useFetchMovies } from "queries/queries";
+
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(QUERY_KEYS.MOVIE_LIST, () => getMovies());
+
+  return { props: { dehydratedState: dehydrate(queryClient) } };
+};
 
 const Home: NextPage = () => {
   const { push } = useRouter();
   // CSR
-  const { isLoading, data: nameData } = useQuery<{ name: string }>(queryKeys.NAME, getNameData);
+  const { isLoading: isNameLoading, data: nameData } = useQuery<{ name: string }>(
+    QUERY_KEYS.USER_NAME,
+    getNameData
+  );
 
   // SSG
-  const { data: movieData } = useQuery(queryKeys.MOVIE, getMovieName);
+  const { data: movies, isLoading: isMoviesFetchLoading } = useFetchMovies();
 
-  console.log("movie", movieData);
+  console.log("movie", movies);
 
   return (
     <>
       <TextSection>
         <div className="text_container">
           <h2 className="title">Next js Template</h2>
-          {nameData && <h3 className="author">by crs {nameData.name}</h3>}
-          <h3
-            className="author"
-            onClick={() => {
-              push(`/movie/${movieData.id}`);
-            }}
-          >
-            by SSG {movieData.original_title}
-          </h3>
+          {!isNameLoading && <h3 className="author">by crs {nameData?.name}</h3>}
+          {!isMoviesFetchLoading && (
+            <>
+              <h3
+                className="author"
+                onClick={() => {
+                  push(`/movie/${movies?.results[0].id}`);
+                }}
+              >
+                by SSG {movies?.results[0].original_title}
+              </h3>
+              <h3
+                className="author"
+                onClick={() => {
+                  push(`/movie/${movies?.results[1].id}`);
+                }}
+              >
+                by SSG {movies?.results[1].original_title}
+              </h3>
+            </>
+          )}
         </div>
       </TextSection>
       <ImageSection>
@@ -61,15 +84,6 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-export const getStaticProps: GetStaticProps = async (): Promise<{
-  props: { dehydratedState: DehydratedState };
-}> => {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(queryKeys.MOVIE, getMovieName);
-
-  return { props: { dehydratedState: dehydrate(queryClient) } };
-};
 
 const TextSection = styled.section`
   width: 100%;

@@ -17,3 +17,10 @@ interface ISong {
   year: number;
   image: string;
 }
+
+interface IMovieDetail {
+  id: number;
+  original_title: string;
+  poster_path: string;
+  overview: string;
+}

@@ -1,37 +1,44 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { GetServerSideProps, GetStaticProps } from "next";
-import { dehydrate, DehydratedState, QueryClient, useQuery } from "@tanstack/react-query";
-import { getMovieDetail, TMBD_API_URL } from "utils/api";
-import { queryKeys } from "types/queryKeys";
-import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { getMovieDetail, TMBD_IMAGE_URL } from "apis/api";
+import { QUERY_KEYS } from "queries/queryKeys";
+import { useFetchMovieDetail, usePostMovieRate } from "queries/queries";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id }: { id?: string } = context.query;
 
   const queryClient = new QueryClient();
   if (id) {
-    await queryClient.prefetchQuery(queryKeys.DETAIL, () => getMovieDetail(parseInt(id)));
+    await queryClient.prefetchQuery(QUERY_KEYS.MOVIE_DETAIL, () => getMovieDetail(parseInt(id)));
   }
 
   return { props: { dehydratedState: dehydrate(queryClient), id: id } };
 };
 
 const Detail = ({ id }: { id: string }) => {
-  const { data: movieData, isLoading } = useQuery(queryKeys.DETAIL, () =>
-    getMovieDetail(parseInt(id))
-  );
+  const { data: movieData } = useFetchMovieDetail(parseInt(id));
+  const { mutate, isError, isLoading } = usePostMovieRate();
 
-  console.log(movieData);
-  console.log(id);
+  console.log("data", movieData);
+
+  const handleNameClick = async () => {
+    console.log("clicked!");
+
+    const result = mutate({
+      movie_id: parseInt(id),
+      score: 3.5,
+    });
+  };
 
   return (
     <Wrapper>
-      {!isLoading && (
+      {movieData && (
         <Container>
           <ImageContainer width="100%" height="400px" borderRadius="3rem">
             <Image
-              src={`${TMBD_API_URL}${movieData.poster_path}`}
+              src={`${TMBD_IMAGE_URL}${movieData.poster_path}`}
               alt="artist image"
               layout="fill"
               objectFit="cover"
@@ -39,8 +46,12 @@ const Detail = ({ id }: { id: string }) => {
             />
           </ImageContainer>
           <>
-            <h3 className="name">{movieData.original_title}</h3>
-            <span className="nationality">{movieData.original_title}</span>
+            <h3 className="name" onClick={handleNameClick}>
+              {movieData.original_title}
+            </h3>
+            <span className="nationality">
+              {isError ? "post Error" : isLoading ? "loading" : "nothing"}
+            </span>
           </>
         </Container>
       )}

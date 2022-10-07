@@ -6,13 +6,8 @@ import styled from "styled-components";
 // Components
 import Seo from "components/seo";
 // Api
-import { getArtistData, getNameData } from "utils/api";
-import {
-  dehydrate,
-  DehydratedState,
-  QueryClient,
-  useQuery,
-} from "@tanstack/react-query";
+import { getArtistData, getNameData } from "apis/api";
+import { dehydrate, DehydratedState, QueryClient, useQuery } from "@tanstack/react-query";
 
 const About: NextPage = () => {
   // SSR
@@ -38,11 +33,7 @@ const About: NextPage = () => {
             <Songlist>
               {artist.songs.map((song) => (
                 <li key={song.title}>
-                  <ImageContainer
-                    height="100px"
-                    width="100px"
-                    borderRadius="50%"
-                  >
+                  <ImageContainer height="100px" width="100px" borderRadius="50%">
                     <Image
                       src={song.image}
                       alt="artist image"
