@@ -1,14 +1,14 @@
 // React & Next
 import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQuery } from "react-query";
 import { QUERY_KEYS } from "queries/queryKeys";
 // Style
 import styled from "styled-components";
 // Utils
 import { getMovies, getNameData } from "apis/api";
 import { useRouter } from "next/router";
-import { useFetchMovies } from "queries/queries";
+import { useFetchMovies, useFetchUserName } from "queries/queries";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -20,10 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: NextPage = () => {
   const { push } = useRouter();
   // CSR
-  const { isLoading: isNameLoading, data: nameData } = useQuery<{ name: string }>(
-    QUERY_KEYS.USER_NAME,
-    getNameData
-  );
+  const { isLoading: isNameLoading, data: nameData } = useFetchUserName();
 
   // SSG
   const { data: movies, isLoading: isMoviesFetchLoading } = useFetchMovies();

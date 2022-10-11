@@ -7,7 +7,7 @@ import styled from "styled-components";
 import Seo from "components/seo";
 // Api
 import { getArtistData, getNameData } from "apis/api";
-import { dehydrate, DehydratedState, QueryClient, useQuery } from "@tanstack/react-query";
+import { dehydrate, DehydratedState, QueryClient, useQuery } from "react-query";
 
 const About: NextPage = () => {
   // SSR
