@@ -1,8 +1,8 @@
 // React & Next
 import { useEffect } from "react";
 import type { AppProps } from "next/app";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 // Style
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "styles/theme";

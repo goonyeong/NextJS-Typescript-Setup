@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { GetServerSideProps } from "next";
-import { dehydrate, QueryClient } from "react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getMovieDetail, TMBD_IMAGE_URL } from "apis/api";
 import { QUERY_KEYS } from "queries/queryKeys";
 import { useFetchMovieDetail, usePostMovieRate } from "queries/queries";

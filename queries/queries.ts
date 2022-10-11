@@ -1,4 +1,4 @@
-import { useMutation, useQuery, UseQueryOptions, UseQueryResult } from "react-query";
+import { useMutation, useQuery, UseQueryOptions, UseQueryResult } from "@tanstack/react-query";
 import { QUERY_KEYS } from "queries/queryKeys";
 import { getMovieDetail, getMovies, getNameData, postMovieRate } from "apis/api";
 import { AxiosError } from "axios";

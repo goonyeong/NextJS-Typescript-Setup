@@ -1,7 +1,7 @@
 // React & Next
 import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "queries/queryKeys";
 // Style
 import styled from "styled-components";
