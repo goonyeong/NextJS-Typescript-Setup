@@ -1,14 +1,14 @@
 // React & Next
 import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
-import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "queries/queryKeys";
 // Style
 import styled from "styled-components";
 // Utils
-import { getMovies, getNameData } from "apis/api";
+import { getMovies } from "apis/api";
 import { useRouter } from "next/router";
-import { useFetchMovies, useFetchUserName } from "queries/queries";
+import { useFetchMovies } from "queries/queries";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -19,42 +19,35 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage = () => {
   const { push } = useRouter();
-  // CSR
-  const { isLoading: isNameLoading, data: nameData } = useFetchUserName();
 
-  // SSG
-  const { data: movies, isLoading: isMoviesFetchLoading } = useFetchMovies();
-
-  console.log("movie", movies);
-
+  const { data: movies } = useFetchMovies();
   return (
     <>
-      <TextSection>
-        <div className="text_container">
-          <h2 className="title">Next js Template</h2>
-          {!isNameLoading && <h3 className="author">by crs {nameData?.name}</h3>}
-          {!isMoviesFetchLoading && (
+      {movies && (
+        <TextSection>
+          <div className="text_container">
+            <h2 className="title">Next js Template</h2>
             <>
               <h3
                 className="author"
                 onClick={() => {
-                  push(`/movie/${movies?.results[0].id}`);
+                  push(`/movie/${movies.results[0].id}`);
                 }}
               >
-                by SSG {movies?.results[0].original_title}
+                {movies.results[0].original_title}
               </h3>
               <h3
                 className="author"
                 onClick={() => {
-                  push(`/movie/${movies?.results[1].id}`);
+                  push(`/movie/${movies.results[1].id}`);
                 }}
               >
-                by SSG {movies?.results[1].original_title}
+                {movies.results[1].original_title}
               </h3>
             </>
-          )}
-        </div>
-      </TextSection>
+          </div>
+        </TextSection>
+      )}
       <ImageSection>
         <div className="img_container">
           <Image src="/images/sample.jpg" alt="sample" layout="fill" objectFit="cover" priority />

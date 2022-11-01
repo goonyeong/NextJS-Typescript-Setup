@@ -4,35 +4,24 @@ import { GetServerSideProps } from "next";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { getMovieDetail, TMBD_IMAGE_URL } from "apis/api";
 import { QUERY_KEYS } from "queries/queryKeys";
-import { useFetchMovieDetail, usePostMovieRate } from "queries/queries";
+import { useFetchMovieDetail } from "queries/queries";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id }: { id?: string } = context.query;
 
   const queryClient = new QueryClient();
   if (id) {
-    await queryClient.prefetchQuery(QUERY_KEYS.MOVIE_DETAIL, () => getMovieDetail(parseInt(id)));
+    await queryClient.prefetchQuery(QUERY_KEYS.MOVIE_DETAIL, () =>
+      getMovieDetail(parseInt(String(id)))
+    );
   }
 
-  return { props: { dehydratedState: dehydrate(queryClient), id: id } };
+  return { props: { dehydratedState: dehydrate(queryClient), id: parseInt(String(id)) } };
 };
 
-const Detail = ({ id }: { id: string }) => {
-  const { data: movieData } = useFetchMovieDetail(parseInt(id));
-  const { mutate, isError, isLoading } = usePostMovieRate();
-
-  console.log("data", movieData);
-
-  const handleNameClick = async () => {
-    console.log("clicked!");
-
-    const result = mutate({
-      movie_id: parseInt(id),
-      score: 3.5,
-    });
-
-    console.log(result);
-  };
+const Detail = ({ id }: { id: number }) => {
+  const { data: movieData } = useFetchMovieDetail(id);
 
   return (
     <Wrapper>
@@ -48,12 +37,9 @@ const Detail = ({ id }: { id: string }) => {
             />
           </ImageContainer>
           <>
-            <h3 className="name" onClick={handleNameClick}>
+            <h3 className="name" onClick={() => {}}>
               {movieData.original_title}
             </h3>
-            <span className="nationality">
-              {isError ? "post Error" : isLoading ? "loading" : "nothing"}
-            </span>
           </>
         </Container>
       )}

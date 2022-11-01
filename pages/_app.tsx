@@ -23,7 +23,15 @@ import Seo from "components/seo";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { themeStore } = useStore();
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: 0,
+        cacheTime: 1000 * 5,
+        staleTime: 1000 * 2,
+      },
+    },
+  });
 
   useEffect(() => {
     reHydrateLocalStorage([rootStore.themeStore]);

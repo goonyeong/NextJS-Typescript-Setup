@@ -61,13 +61,6 @@ const Header = () => {
             >
               Home
             </li>
-            <li
-              onClick={() => {
-                doPush("/about");
-              }}
-            >
-              About
-            </li>
           </Nav>
         </div>
         <span className="set_theme" onClick={setThemeClick}>

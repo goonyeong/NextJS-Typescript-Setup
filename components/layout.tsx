@@ -8,7 +8,7 @@ interface ILayoutProps {
 const Layout = ({ children }: ILayoutProps) => {
   return (
     <>
-      <PageTitle>Apple</PageTitle>
+      <PageTitle>Next App</PageTitle>
       <Header />
       <main>{children}</main>
     </>

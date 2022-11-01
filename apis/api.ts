@@ -1,27 +1,8 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:3000";
-export const TMBD_API_URL = "https://api.themoviedb.org/3";
 export const TMBD_API_KEY = "2aba01b0fce18e86ed1cee2e83403b06";
+export const TMBD_API_URL = "https://api.themoviedb.org/3";
 export const TMBD_IMAGE_URL = "https://image.tmdb.org/t/p/original";
-
-export const getNameData = async () => {
-  const { data } = await axios({
-    method: "get",
-    url: `${API_URL}/api/name`,
-  });
-
-  return data;
-};
-
-export const getArtistData = async () => {
-  const { data } = await axios({
-    method: "get",
-    url: `${API_URL}/api/artist`,
-  });
-
-  return data;
-};
 
 export const getMovies = async () => {
   const { data } = await axios({
