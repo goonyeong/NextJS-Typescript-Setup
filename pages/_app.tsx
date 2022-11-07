@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "styles/theme";
 import GlobalStyle from "styles/globalStyles";
-import GlobalFont from "styles/globalFonts";
+import "../styles/fonts.css";
 // Mobx
 import { observer } from "mobx-react-lite";
 import {
@@ -44,7 +44,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Hydrate state={pageProps.dehydratedState}>
           <StoreProvider value={rootStore}>
             <ThemeProvider theme={themeStore.theme === "light" ? lightTheme : darkTheme}>
-              <GlobalFont />
               <GlobalStyle />
               <Layout>
                 <Seo title="Next app" />
