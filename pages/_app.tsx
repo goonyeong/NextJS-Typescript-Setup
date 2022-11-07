@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         retry: 0,
         cacheTime: 1000 * 5,
         staleTime: 1000 * 2,
+        useErrorBoundary: true,
       },
     },
   });
