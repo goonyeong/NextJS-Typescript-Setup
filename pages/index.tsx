@@ -6,7 +6,7 @@ import { QUERY_KEYS } from "utils/queries/queryKeys";
 // Style
 import styled from "styled-components";
 // Utils
-import { getMovies } from "apis/api";
+import { getMovies } from "utils/apis/api";
 import { useRouter } from "next/router";
 import { useFetchMovies } from "utils/queries/queries";
 

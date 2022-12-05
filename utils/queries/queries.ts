@@ -1,6 +1,6 @@
 import { useMutation, useQuery, UseQueryResult } from "@tanstack/react-query";
 import { QUERY_KEYS } from "utils/queries/queryKeys";
-import { getMovieDetail, getMovies, postMovieRate } from "apis/api";
+import { getMovieDetail, getMovies, postMovieRate } from "utils/apis/api";
 import { AxiosError } from "axios";
 
 export const useFetchMovies = (): UseQueryResult<{ results: IMovieDetail[] }, AxiosError> =>

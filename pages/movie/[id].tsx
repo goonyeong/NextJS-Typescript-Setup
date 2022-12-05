@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { GetServerSideProps } from "next";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { getMovieDetail, TMBD_IMAGE_URL } from "apis/api";
+import { getMovieDetail, TMBD_IMAGE_URL } from "utils/apis/api";
 import { QUERY_KEYS } from "utils/queries/queryKeys";
 import { useFetchMovieDetail } from "utils/queries/queries";
 import { useRouter } from "next/router";
