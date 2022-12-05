@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "components/header";
-import { ErrorBoundary } from "./error/errorBoundary";
-import { ErrorFallback } from "./error/errorFallback";
+import { ErrorBoundary } from "../error/errorBoundary";
+import { ErrorFallback } from "../error/errorFallback";
 import { useRouter } from "next/router";
 
 interface ILayoutProps {

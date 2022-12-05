@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "styles/theme";
 import GlobalStyle from "styles/globalStyles";
-import "../styles/fonts.css";
+import "styles/fonts.css";
 // Mobx
 import { observer } from "mobx-react-lite";
 import {
@@ -18,7 +18,7 @@ import {
   reHydrateSessionStorage,
 } from "store";
 // Components
-import Layout from "components/layout";
+import Layout from "components/layout/layout";
 import Seo from "components/seo";
 
 function MyApp({ Component, pageProps }: AppProps) {

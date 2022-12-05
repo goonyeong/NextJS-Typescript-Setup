@@ -2,13 +2,13 @@
 import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "queries/queryKeys";
+import { QUERY_KEYS } from "utils/queries/queryKeys";
 // Style
 import styled from "styled-components";
 // Utils
 import { getMovies } from "apis/api";
 import { useRouter } from "next/router";
-import { useFetchMovies } from "queries/queries";
+import { useFetchMovies } from "utils/queries/queries";
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
